@@ -1,11 +1,10 @@
-// C++ code
-//
-
 #include <Servo.h>
-//taken from Prof code on Canvas slides
 
 Servo servo; //create servo variable
 const int buttonPin = 2; //create buttonpin
+
+int buttonState = 0;
+int previousButtonState = 0;
 
 void setup()
 {
@@ -15,10 +14,15 @@ void setup()
 
 void loop()
 {
+ buttonState = digitalRead(buttonPin);
   //read if buttonPin
-  if (digitalRead(buttonPin) == LOW) { 
-    servo.write(180); //move servo 180
-  } else {
-    servo.write(0); //do not move servo/move servo 0 
+  if (buttonState != previousButtonState) {
+  	if (digitalRead(buttonPin) == HIGH) { //if button pressed
+    	servo.write(180); //move servo to position 180
+  	} else { //if button not pressed
+    	servo.write(0); //move servo to position 0
+  	}
   }
+  previousButtonState = buttonState;
+  
 }

@@ -1,3 +1,4 @@
+
 // this is test code from milan
 
 #include <Servo.h>
@@ -5,6 +6,7 @@
 Servo shrek;  // Create a servo object for servo on digital pin 2
 Servo fiona; // Create a servo object for servo on digital pin 4
 Servo dragon;  // Create a servo object for servo on digital pin 7
+
 bool dragonPlaced = false; // Create a boolena for when the user places the dragon behind the window
 
 //initialize buttons to pins that will affect each Servo
@@ -61,6 +63,7 @@ void loop() {
     } else { //if button fiona is not pressed
       	fiona.write(0);
     }
+    
   }
   previousButtonStateF = buttonStateF; //reset buttonState for Fiona
   
@@ -87,26 +90,5 @@ void loop() {
     }
   }
   previousButtonStateFa = buttonStateFa;
-  
-  
-  
-/*note - at this piont, all 3 servos have a button that triggers them. 
-  HOWEVER, there is no order in which the buttons/servos can be triggered.
-*/
- 
-  
-/*  
-example pseudocode from Prof Sydney
-
-//buttons 
-  //if shrek then 90, if fiona same servo 180
-  if(fionaPlayer == true){
-    shrek.write(90);
-  }
-  if(shrekPlayer == true){
-    shrek.write(180); 
-  }
-  
-*/
   
 }

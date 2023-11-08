@@ -1,10 +1,9 @@
-//Branch test code from Chelsea -- adding Booleans
-
 #include <Servo.h>
 
 Servo shrek;  // Create a servo object for servo on digital pin 2
 Servo fiona; // Create a servo object for servo on digital pin 4
 Servo dragon;  // Create a servo object for servo on digital pin 7
+
 bool dragonPlaced = false; // Create a boolean for when the user places the dragon behind the window
 bool shrekEvent = false; 
 bool fionaEvent = false;
@@ -46,9 +45,8 @@ void setup() {
 
 void loop() { 
   
-  buttonStateS = digitalRead(buttonShrek);
-  //read Shrek Button
-  if (buttonStateS != previousButtonStateS) {// button is pushed or unpushed
+  buttonStateS = digitalRead(buttonShrek)
+  if (buttonStateS != previousButtonStateS) {
     if (digitalRead(buttonShrek) == HIGH) { //if button shrek is pressed
   		shrek.write(180); // Move shrek servo to position 180 degrees
       	shrekEvent = true; //allows Fionabutton to work
@@ -59,7 +57,7 @@ void loop() {
   }
   previousButtonStateS = buttonStateS;//reset buttonState for Shrek
   
- if (shrekEvent == true) { // if shrek's event has happened
+ if (shrekEvent == true) { 
   buttonStateF = digitalRead(buttonFiona);
   //read Fiona Button
   if (buttonStateF != previousButtonStateF) {
@@ -75,7 +73,7 @@ void loop() {
   previousButtonStateF = buttonStateF; //reset buttonState for Fiona
  }
   
-if (fionaEvent == true) { // if fiona's transformation has happened
+if (fionaEvent == true) { 
  buttonStateD = digitalRead(buttonDragon);
   //read Dragon Button
   if (buttonStateD != previousButtonStateD) {

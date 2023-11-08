@@ -1,13 +1,12 @@
-
-// this is test code from milan
-
 #include <Servo.h>
 
 Servo shrek;  // Create a servo object for servo on digital pin 2
 Servo fiona; // Create a servo object for servo on digital pin 4
 Servo dragon;  // Create a servo object for servo on digital pin 7
 
-bool dragonPlaced = false; // Create a boolena for when the user places the dragon behind the window
+bool dragonPlaced = false; // Create a boolean for when the user places the dragon behind the window
+bool shrekEvent = false; 
+bool fionaEvent = false;
 
 //initialize buttons to pins that will affect each Servo
 const int buttonShrek = 2;
@@ -40,33 +39,41 @@ void setup() {
   shrek.write(0);
   fiona.write(0);
   dragon.write(0);
+  
+  Serial.begin(9600);
 }
 
 void loop() { 
   
-  buttonStateS = digitalRead(buttonShrek);
-  //read Shrek Button
+  buttonStateS = digitalRead(buttonShrek)
   if (buttonStateS != previousButtonStateS) {
     if (digitalRead(buttonShrek) == HIGH) { //if button shrek is pressed
   		shrek.write(180); // Move shrek servo to position 180 degrees
+      	shrekEvent = true; //allows Fionabutton to work
+    	//Serial.println("ShrekEvent is true"); Debugging
     } else { //if button shrek is not pressed
       	shrek.write(0);
     }
   }
-  previousButtonStateS = buttonStateS; //reset buttonState for Shrek
+  previousButtonStateS = buttonStateS;//reset buttonState for Shrek
   
+ if (shrekEvent == true) { 
   buttonStateF = digitalRead(buttonFiona);
   //read Fiona Button
   if (buttonStateF != previousButtonStateF) {
-    if (digitalRead(buttonFiona) == HIGH) { //if button fiona is pressed
+    if (digitalRead(buttonFiona) == HIGH) {
   		fiona.write(180); // Move fiona servo to position 180 degrees
+      	fionaEvent = true; // allows Dragonbutton to work
+      	//Serial.println("FionaEvent is true"); Debugging
     } else { //if button fiona is not pressed
       	fiona.write(0);
     }
-    
+  
   }
   previousButtonStateF = buttonStateF; //reset buttonState for Fiona
+ }
   
+if (fionaEvent == true) { 
  buttonStateD = digitalRead(buttonDragon);
   //read Dragon Button
   if (buttonStateD != previousButtonStateD) {
@@ -90,5 +97,7 @@ void loop() {
     }
   }
   previousButtonStateFa = buttonStateFa;
+  
+ }
   
 }

@@ -9,27 +9,6 @@ bool dragonPlaced = false; // Create a boolean for when the user places the drag
 bool shrekEvent = false; 
 bool fionaEvent = false;
 
-/*
-pseudocode
-
-Add new boolean for shrek trigger - initially false
-	set to true after green and purple token placed on circuit 
-	(one time trigger-doesn't need to be deactivated or activiated again)
-
-Add new boolean for fiona trigger - initially false
-If shrek trigger is true 
-	Function Fiona plays 
-    fiona trigger set to true after sun is placed on back wall circuit
-    (one time trigger-doesn't need to be deactivated or activiated again)
-    else Function Fiona doesn't play
-    
-If fiona trigger is true 
-	Function Dragon plays
-    else Function Dragon doesn't play
-
-*/
-
-
 //initialize buttons to pins that will affect each Servo
 const int buttonShrek = 2;
 const int buttonFiona = 4;

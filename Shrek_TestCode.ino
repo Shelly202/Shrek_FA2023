@@ -1,4 +1,3 @@
-
 // this is test code from milan
 
 #include <Servo.h>
@@ -6,13 +5,13 @@
 Servo shrek;  // Create a servo object for servo on digital pin 2
 Servo fiona; // Create a servo object for servo on digital pin 4
 Servo dragon;  // Create a servo object for servo on digital pin 7
-
 bool dragonPlaced = false; // Create a boolena for when the user places the dragon behind the window
 
 //initialize buttons to pins that will affect each Servo
 const int buttonShrek = 2;
 const int buttonFiona = 4;
 const int buttonDragon = 7;
+const int buttonDragonStart = 10;
 const int buttonFarquaad = 11;
 
 int buttonStateS = 0;
@@ -23,6 +22,9 @@ int previousButtonStateF = 0;
 
 int buttonStateD = 0;
 int previousButtonStateD = 0;
+
+int buttonStateDS = 0;
+int previousButtonStateDS = 0;
 
 int buttonStateFa = 0;
 int previousButtonStateFa = 0;
@@ -36,6 +38,7 @@ void setup() {
   pinMode(buttonFiona, INPUT);
   pinMode(buttonDragon, INPUT);
   pinMode(buttonFarquaad, INPUT);
+  pinMode(buttonDragonStart, INPUT);
   
   shrek.write(0);
   fiona.write(0);
@@ -43,17 +46,18 @@ void setup() {
 }
 
 void loop() { 
-  
+  buttonStateDS = digitalRead(buttonStateDS);
   buttonStateS = digitalRead(buttonShrek);
   //read Shrek Button
-  if (buttonStateS != previousButtonStateS) {
-    if (digitalRead(buttonShrek) == HIGH) { //if button shrek is pressed
+  if (buttonStateS != previousButtonStateS || buttonStateDS != previousButtonStateDS) {
+    if (digitalRead(buttonShrek) == HIGH && digitalRead(buttonDragonStart) == HIGH) { //if button shrek AND button dragonstart is pressed
   		shrek.write(180); // Move shrek servo to position 180 degrees
     } else { //if button shrek is not pressed
       	shrek.write(0);
     }
   }
-  previousButtonStateS = buttonStateS; //reset buttonState for Shrek
+  previousButtonStateS = buttonStateS;//reset buttonState for Shrek
+  previousButtonStateDS = buttonStateDS;
   
   buttonStateF = digitalRead(buttonFiona);
   //read Fiona Button
@@ -63,7 +67,6 @@ void loop() {
     } else { //if button fiona is not pressed
       	fiona.write(0);
     }
-    
   }
   previousButtonStateF = buttonStateF; //reset buttonState for Fiona
   
@@ -90,5 +93,26 @@ void loop() {
     }
   }
   previousButtonStateFa = buttonStateFa;
+  
+  
+  
+/*note - at this piont, all 3 servos have a button that triggers them. 
+  HOWEVER, there is no order in which the buttons/servos can be triggered.
+*/
+ 
+  
+/*  
+example pseudocode from Prof Sydney
+
+//buttons 
+  //if shrek then 90, if fiona same servo 180
+  if(fionaPlayer == true){
+    shrek.write(90);
+  }
+  if(shrekPlayer == true){
+    shrek.write(180); 
+  }
+  
+*/
   
 }
